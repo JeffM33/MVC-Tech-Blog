@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Blog, User } = require('../models');
+const Reply = require('../models/Reply');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
@@ -47,6 +48,25 @@ router.get('/blog/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+
+  // try {
+  //   const replyData = await Reply.findAll(req.params.id, {
+  //     include:[
+  //       {
+  //         model: Reply,
+  //         attributes: ['text', 'date_created']
+  //       },
+  //       {
+  //         model: User,
+  //         attributes: ['name']
+  //       }
+  //     ],
+  //   });
+
+  //   const reply = replyData.get({ plain: true});
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
 });
 
 // Use withAuth middleware to prevent access to route
